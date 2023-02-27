@@ -1,0 +1,9 @@
+{
+	"name": "adf-automation-test1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "dd9a620b-cf54-4b9d-a980-61f04085e1ce",
+		"tenantId": "b1406b2c-523c-40d1-93a7-88fde5b65c9d"
+	}
+}
