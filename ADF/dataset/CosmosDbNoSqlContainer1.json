@@ -1,0 +1,54 @@
+{
+	"name": "CosmosDbNoSqlContainer1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDbNoSql1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Volcano Name": {
+					"type": "string"
+				},
+				"Country": {
+					"type": "string"
+				},
+				"Region": {
+					"type": "string"
+				},
+				"Location": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"coordinates": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							}
+						}
+					}
+				},
+				"Elevation": {
+					"type": "integer"
+				},
+				"Type": {
+					"type": "string"
+				},
+				"Status": {
+					"type": "string"
+				},
+				"Last Known Eruption": {
+					"type": "string"
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "adfcontent"
+		}
+	}
+}
