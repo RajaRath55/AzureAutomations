@@ -39,7 +39,5 @@ jobs:
         parameters: CosmosDbNoSql1_connectionString="${{ secrets.COSMOS_DB_CONNECTION }}"
                     AzureBlobStorage1_connectionString="${{ secrets.STORAGE_CONNECTION }}"
                     factoryName="adf-automation-test2"
-                    containerUri="{{ secrets.CONTAINER_URL}"
-                    containerSasToken="{{ secrets.CONTAINER_SAS}}"
         # Specify whether to fail the action if some data is written to stderr stream of az cli. Valid values are: true, false
         failOnStdErr: true
