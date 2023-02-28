@@ -30,7 +30,7 @@ jobs:
         # Provide the name of a resource group, only required for resource Group deployments.
         resourceGroupName: ${{ secrets.AZURE_RG }}
         # Specify the path or URL to the Azure Resource Manager template.
-        template: ./ARMTemplateForFactory.json
+        template: ./adf-automation-test1/ARMTemplateForFactory.json
         # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
         deploymentMode: Incremental
         # Specifies the name of the resource group deployment to create.
