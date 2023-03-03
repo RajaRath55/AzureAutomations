@@ -42,10 +42,10 @@ jobs:
         run: |
           for entry in "/ADB/Notebook"/*
           do
-            if [ grep -q "py" <<< "$entry" ] ;
+            if grep -q "py" <<< "$entry"  ;
             then
               databricks workspace import $runbookpath/$entry /Shared/$entry -l PYTHON
-            elif [ grep -q "sql" <<< "$entry" ] ;
+            elif grep -q "sql" <<< "$entry"  ;
             then
               databricks workspace import $runbookpath/$entry /Shared/$entry -l SQL
             fi
