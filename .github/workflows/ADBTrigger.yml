@@ -42,7 +42,7 @@ jobs:
           # Databricks token
           databricks-token: ${{ env.DATABRICKS_TOKEN }}
           # LOCAL_NOTEBOOKS_PATH
-          local-path: ADB/DataRead.py
+          local-path: ./ADB/DataRead.py
           # REMOTE_NOTEBOOK_PATH
           remote-path: /FileStore/tables/
       - name: Setup Python
