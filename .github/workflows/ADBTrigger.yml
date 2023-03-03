@@ -40,8 +40,8 @@ jobs:
           databricks clusters create --json-file ADB/Clusters/computeengine.json
       - name: import runbook
         run: |
-          runbookpath = ./ADB/Notebook/
-          for entry in "$runbookpath"/*
+          runbookpath = /ADB/Notebook
+          for entry in "/ADB/Notebook"/*
           do
             if [ grep -q "py" <<< "$entry" ] ;
             then
