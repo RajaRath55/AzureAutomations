@@ -21,7 +21,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: install-databricks-cli
         uses: microsoft/install-databricks-cli@v1.0.0
-      
+        
       # The step below does the following:
       # 1. Sends a POST request to generate an Azure Active Directory token for an Azure service principal
       # 2. Parses the token from the request response and then saves that in as DATABRICKS_TOKEN in the
@@ -34,11 +34,17 @@ jobs:
           echo "DATABRICKS_TOKEN=$(az account get-access-token \
           --resource=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
           --query accessToken -o tsv)" >> $GITHUB_ENV
-      - name: Azure CLI Action
-        uses: Azure/cli@v1.0.7
+      - name: databricks-import-directory
+        uses: microsoft/databricks-import-notebook@v1.0.0
         with:
-          # Specify the script here
-          inlineScript: databricks configure --aad-token
+          # Databricks host
+          databricks-host: "https://adb-7871370843959004.4.azuredatabricks.net/"
+          # Databricks token
+          databricks-token: ${{ env.DATABRICKS_TOKEN }}
+          # LOCAL_NOTEBOOKS_PATH
+          local-path: ADB/DataRead.py
+          # REMOTE_NOTEBOOK_PATH
+          remote-path: /FileStore/tables/
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
         with:
