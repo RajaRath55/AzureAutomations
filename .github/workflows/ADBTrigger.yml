@@ -33,6 +33,8 @@ jobs:
           --query accessToken -o tsv)" >> $GITHUB_ENV
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
+        with:
+          python-version: '3.x'
       - name: Build wheel
         run:
           python setup.py bdist_wheel
