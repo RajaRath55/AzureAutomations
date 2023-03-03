@@ -40,7 +40,7 @@ jobs:
          # databricks clusters create --json-file ADB/computeengine.json
       - name: create Cluster
         run: |
-          databricks workspace import ./ADB/DataRead.py /Shared/Automation
+          databricks workspace import ./ADB/DataRead.py /Shared/Automation -l PYTHON
           
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
