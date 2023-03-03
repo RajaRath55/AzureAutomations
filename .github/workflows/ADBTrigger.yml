@@ -29,7 +29,7 @@ jobs:
             -d 'grant_type=client_credentials' \
             -d 'scope=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d%2F.default' \
             -d 'client_secret=${{ secrets.AZURE_SP_CLIENT_SECRET }}' |  jq -r  '.access_token')" >> $GITHUB_ENV
-      - name: Trigger model training notebook from PR branch
+      - name: Trigger model training notebook
         uses: databricks/run-notebook@v0
         with:
           local-notebook-path: ./ADB/DataRead.py
