@@ -15,20 +15,23 @@ jobs:
     steps:
       - name: Checks out the repo
         uses: actions/checkout@v2
+      - name: Log into Azure
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       # The step below does the following:
       # 1. Sends a POST request to generate an Azure Active Directory token for an Azure service principal
       # 2. Parses the token from the request response and then saves that in as DATABRICKS_TOKEN in the
       # GitHub enviornment.
       # Note: if the API request fails, the request response json will not have an "access_token" field and
       # the DATABRICKS_TOKEN env variable will be empty.
-      - name: Generate and save AAD Token
+      - name: Generate and save AAD token
+        id: generate-token
         run: |
-          echo "DATABRICKS_TOKEN=$(curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' \
-            https://login.microsoftonline.com/${{ secrets.AZURE_SP_TENANT_ID }}/oauth2/v2.0/token \
-            -d 'client_id=${{ secrets.AZURE_SP_APPLICATION_ID }}' \
-            -d 'grant_type=client_credentials' \
-            -d 'scope=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d%2F.default' \
-            -d 'client_secret=${{ secrets.AZURE_SP_CLIENT_SECRET }}' |  jq -r  '.access_token')" >> $GITHUB_ENV
+          echo "DATABRICKS_TOKEN=$(az account get-access-token \
+          --resource=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
+          --query accessToken -o tsv)" >> $GITHUB_ENV
+          
       - name: Trigger model training notebook
         uses: databricks/run-notebook@v0
         with:
