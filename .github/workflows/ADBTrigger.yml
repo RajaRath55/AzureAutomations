@@ -37,11 +37,10 @@ jobs:
           python-version: '3.x'
       - name: install python packages
         run: |
-          pip install setuptools
           pip install wheel
       - name: Build wheel
         run:
-          python setup.py bdist_wheel
+          python ADB/setup.py bdist_wheel
       - name: Upload Wheel
         uses: databricks/upload-dbfs-temp@v0
         id: upload_wheel
