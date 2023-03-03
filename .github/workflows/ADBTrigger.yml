@@ -35,12 +35,22 @@ jobs:
           echo "DATABRICKS_TOKEN=$(az account get-access-token \
           --resource 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
           --query accessToken -o tsv)" >> $GITHUB_ENV
-      #- name: create Cluster
-        #run: |
-         # databricks clusters create --json-file ADB/computeengine.json
       - name: create Cluster
         run: |
-          databricks workspace import ./ADB/DataRead.py /Shared/Automation -l PYTHON
+          databricks clusters create --json-file ADB/computeengine.json
+      - name: import runbook
+        run: |
+          runbookpath = ./ADB/Notebook/
+          for entry in "$runbookpath"/*
+          do
+            if [ grep -q "py" <<< "$entry" ] ;
+            then
+              databricks workspace import $runbookpath/$entry /Shared/$entry -l PYTHON
+            elif [ grep -q "sql" <<< "$entry" ] ;
+            then
+              databricks workspace import $runbookpath/$entry /Shared/$entry -l SQL
+            fi
+          done
           
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
