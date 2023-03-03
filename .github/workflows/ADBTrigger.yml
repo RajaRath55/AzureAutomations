@@ -40,5 +40,5 @@ jobs:
           databricks clusters create --json-file ADB/Clusters/computeengine.json
       - name: import runbook
         run: |   
-          databricks workspace import ./ADB/Notebook/DataRead.py /Shared/Automation/DataRead.py -l PYTHON
+          databricks workspace import /ADB/Notebook/DataRead.py /Shared/Automation/DataRead.py -l PYTHON
 
