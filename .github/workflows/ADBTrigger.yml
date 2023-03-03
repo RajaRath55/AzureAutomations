@@ -31,11 +31,24 @@ jobs:
           echo "DATABRICKS_TOKEN=$(az account get-access-token \
           --resource=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
           --query accessToken -o tsv)" >> $GITHUB_ENV
-          
+      - name: Setup python
+        uses: actions/setup-python@v2
+      - name: Build wheel
+        run:
+          python setup.py bdist_wheel
+      - name: Upload Wheel
+        uses: databricks/upload-dbfs-temp@v0
+        id: upload_wheel
+        with:
+          local-path: dist/my-project.whl    
       - name: Trigger model training notebook
         uses: databricks/run-notebook@v0
         with:
           local-notebook-path: ./ADB/DataRead.py
+          libraries-json: >
+            [
+              { "whl": "${{ steps.upload_wheel.outputs.dbfs-file-path }}" }
+            ]
           # If the current workflow is triggered from a PR,
           # run notebook code from the PR's head commit, otherwise use github.sha.
           git-commit: ${{ github.event.pull_request.head.sha || github.sha }}
