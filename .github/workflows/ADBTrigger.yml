@@ -38,6 +38,7 @@ jobs:
       - name: install python packages
         run: |
           pip install setuptools
+          pip install wheel
       - name: Build wheel
         run:
           python ADB/annual-enterprise-survey-2021-financial-year-provisional-csv.csv bdist_wheel
