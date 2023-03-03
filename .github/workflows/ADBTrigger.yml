@@ -37,8 +37,6 @@ jobs:
           # run notebook code from the PR's head commit, otherwise use github.sha.
           git-commit: ${{ github.event.pull_request.head.sha || github.sha }}
           # The cluster JSON below is for Azure Databricks. On AWS and GCP, set
-          # node_type_id to an appropriate node type, e.g. "i3.xlarge" for
-          # AWS or "n1-highmem-4" for GCP
           new-cluster-json: >
             {
               "num_workers": 0,
@@ -63,7 +61,7 @@ jobs:
               "spark_env_vars": {
                   "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
               }
-          }
+            }
           # Grant all users view permission on the notebook results
           access-control-list-json: >
             [
