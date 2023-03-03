@@ -39,14 +39,6 @@ jobs:
         run: |
           databricks clusters create --json-file ADB/Clusters/computeengine.json
       - name: import runbook
-        run: |
-          for entry in "/ADB/Notebook"/*
-          do
-            if grep -q "py" <<< "$entry"  ;
-            then
-              databricks workspace import $runbookpath/$entry /Shared/$entry -l PYTHON
-            elif grep -q "sql" <<< "$entry"  ;
-            then
-              databricks workspace import $runbookpath/$entry /Shared/$entry -l SQL
-            fi
-          done
+        run: |   
+          databricks workspace import ./ADB/Notebook/DataRead.py /Shared/Automation/DataRead.py -l PYTHON
+
